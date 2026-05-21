@@ -160,6 +160,23 @@ npm run pack
 
 Output: `dist/FloatTranslator-win32-x64/FloatTranslator.exe`
 
+> [!IMPORTANT]
+> **⚠️ Windows Security Warning for Releases / 免安装版运行安全提示**
+> 
+> Since this open-source application is not signed with an expensive Microsoft developer certificate, Windows Defender SmartScreen or local application policies (like AppLocker) may block execution with a warning like *"Application control policy blocked this file (应用程序控制策略已阻止此文件)"*.
+> 
+> **How to fix / 解决办法:**
+> 1. Right-click the downloaded `.zip` or `.rar` archive file and select **Properties (属性)**.
+> 2. At the bottom of the *General (常规)* tab, check the **Unblock (解除锁定)** box, then click **Apply / OK (应用/确定)**.
+> 3. Make sure to **fully extract** the folder to a local directory (e.g., `D:/Software`) before running `FloatTranslator.exe`. Do not double-click to run directly from inside the zip/rar viewer.
+> 
+> 由于开源软件没有购买昂贵的微软数字签名证书，Windows 安全策略或防护软件（如 SmartScreen）可能会在运行或固定到任务栏时拦截，并报错 *“应用程序控制策略已阻止此文件”*。
+> 
+> **如何解决：**
+> 1. 右键点击下载的 `.zip` 或 `.rar` 压缩包，选择 **属性 (Properties)**。
+> 2. 在“常规”选项卡最下方，勾选 **解除锁定 (Unblock)**，点击**应用/确定**。
+> 3. 请务必先将压缩包**完整解压**到本地非系统目录（如 `D:/` 盘某文件夹）中，再双击运行 `FloatTranslator.exe`。请勿直接在压缩包预览界面双击打开。
+
 ---
 
 ## 🔬 Technical Deep Dive / 技术解密
