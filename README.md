@@ -18,6 +18,7 @@ SSE streaming with live Markdown rendering, compatible with any OpenAI-compatibl
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20|%20macOS%20|%20Linux-blue)]()
 [![i18n](https://img.shields.io/badge/i18n-8%20Languages-green)]()
+[![AI-Assisted Development](https://img.shields.io/badge/Pair%20Programmed%20with-Antigravity%20|%20Gemini-F15A24?logo=google-gemini&logoColor=white)]()
 
 </div>
 
@@ -250,6 +251,12 @@ Contributions are welcome! Feel free to:
 - 🌐 **Multi-provider fallback** — Automatic failover between API providers
 - 📱 **macOS / Linux packaging** — Extend build scripts for other platforms
 - 🎯 **OCR integration** — Screenshot-to-translation workflow
+
+## 🤖 AI-Assisted Development / AI 协同开发说明
+
+This project was built using state-of-the-art AI-assisted development. It was pair-programmed between **gaoyixuan259** and **Antigravity**, a powerful agentic coding assistant designed by the Google DeepMind team. From building the transparent click-through core mechanics, resolving complex flexbox collapses, to auditing XSS vulnerabilities and generating glassmorphic icons, AI played a key role in bringing this project to life.
+
+本项目由开发者与 AI 深度协同开发完成。由 **gaoyixuan259** 与 Google DeepMind 团队设计的智能编程助手 **Antigravity** 结对编程。从构建核心的透明穿透机制、解决复杂的布局坍塌，到审计 XSS 安全漏洞、以及利用 AI 图像模型 Imagen 生成高档玻璃拟态图标，AI 在本项目的诞生过程中扮演了关键的协同角色。
 
 ---
 
