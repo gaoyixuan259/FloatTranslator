@@ -24,6 +24,16 @@ SSE streaming with live Markdown rendering, compatible with any OpenAI-compatibl
 
 ---
 
+## 💡 Why FloatTranslator? / 项目初衷
+
+> **Author's Note / 作者寄语**
+>
+> 现有的浏览器页面翻译会直接替换原文，而许多翻译插件也会占据大量的屏幕空间。不同风格的 UI 堆叠也会使得读者的注意力分散。这个项目的初衷是为了读者能够更加自然的让翻译软件融进屏幕画面里，不会分散注意力或者喧宾夺主。希望你用的开心！
+>
+> Existing browser translation features often directly replace the original text, while many translation plug-ins occupy excessive screen space. Clunky, mismatched UIs also distract the reader's focus. The primary goal of this project is to allow the translation overlay to blend naturally into the screen environment, eliminating distractions and keeping the user focused on the content. I hope you enjoy using it!
+
+---
+
 ## ✨ Features / 功能亮点
 
 ### 🔮 Transparent Click-Through Overlay / 透明穿透模式
