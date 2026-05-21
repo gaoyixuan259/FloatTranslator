@@ -16,7 +16,7 @@ SSE streaming with live Markdown rendering, compatible with any OpenAI-compatibl
 
 [![Electron](https://img.shields.io/badge/Electron-42-47848F?logo=electron&logoColor=white)](https://www.electronjs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20|%20macOS%20|%20Linux-blue)]()
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue)]()
 [![i18n](https://img.shields.io/badge/i18n-8%20Languages-green)]()
 [![AI-Assisted Development](https://img.shields.io/badge/Pair%20Programmed%20with-Antigravity%20|%20Gemini-F15A24?logo=google-gemini&logoColor=white)]()
 
