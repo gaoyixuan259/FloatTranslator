@@ -1,0 +1,992 @@
+:root {
+    --bg-color: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --text-color: #000000;
+    --text-muted: #666666;
+    --border-color: #E5E5E5;
+    --modal-bg: #FFFFFF;
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --btn-hover: #F2F2F2;
+    --primary: #000000;
+    --primary-hover: #333333;
+    --primary-text: #FFFFFF;
+    --placeholder-color: #888888;
+    --label-color: #333333;
+    --status-color: #000000;
+    --toast-bg: #000000;
+    --toast-text: #FFFFFF;
+    --shadow-main: none;
+    --shadow-modal: 0 0 0 1px #000000, 0 10px 30px rgba(0, 0, 0, 0.1);
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --transition: all 0.2s ease;
+    --trans-bg-opacity: 0.35; /* Backdrop alpha opacity variable for transparent mode */
+    --font-size-text: 14px;
+}
+
+[data-theme="dark"] {
+    --bg-color: #000000;
+    --card-bg: #000000;
+    --text-color: #FFFFFF;
+    --text-muted: #888888;
+    --border-color: #262626;
+    --modal-bg: #000000;
+    --overlay-bg: rgba(0, 0, 0, 0.8);
+    --btn-hover: #1A1A1A;
+    --primary: #FFFFFF;
+    --primary-hover: #E5E5E5;
+    --primary-text: #000000;
+    --placeholder-color: #555555;
+    --label-color: #CCCCCC;
+    --status-color: #FFFFFF;
+    --toast-bg: #FFFFFF;
+    --toast-text: #000000;
+    --shadow-main: none;
+    --shadow-modal: 0 0 0 1px #262626, 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Frameless Window Custom Toolbar */
+.toolbar {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 16px; /* 0 padding on right so window controls flush right */
+    border-bottom: 1px solid var(--border-color);
+    background: var(--card-bg);
+    -webkit-app-region: drag;
+    flex-shrink: 0;
+    z-index: 100;
+}
+
+/* Toolbar left: App title and quick Language Selector */
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    -webkit-app-region: drag;
+}
+
+.toolbar-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.lang-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--btn-hover);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    -webkit-app-region: no-drag;
+}
+
+.lang-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.lang-select {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    padding-right: 4px;
+}
+
+.lang-select option {
+    background-color: var(--modal-bg);
+    color: var(--text-color);
+}
+
+/* Toolbar actions right aligned */
+.toolbar-actions {
+    -webkit-app-region: no-drag;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.icon-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    opacity: 1;
+    background-color: var(--btn-hover);
+    border-color: var(--border-color);
+}
+
+.icon-btn.active {
+    color: var(--text-color);
+    background-color: var(--btn-hover);
+    border-color: var(--text-color);
+}
+
+.translate-btn {
+    -webkit-app-region: no-drag;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: 1px solid var(--primary);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: var(--transition);
+}
+
+.translate-btn:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.translate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--btn-hover);
+    border-color: var(--border-color);
+    color: var(--text-muted);
+}
+
+/* Windows style window controls on the far right */
+.window-controls {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    -webkit-app-region: no-drag;
+    margin-left: 12px;
+}
+
+.win-btn {
+    width: 46px; /* Standard Windows window button width */
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    opacity: 0.8;
+    transition: background-color 0.1s ease, color 0.1s ease, opacity 0.1s ease;
+}
+
+.win-btn:hover {
+    opacity: 1;
+    background-color: var(--btn-hover);
+}
+
+.win-btn.close:hover {
+    background-color: #E81123; /* Standard Windows Close Red */
+    color: #FFFFFF;
+}
+
+.win-btn svg {
+    pointer-events: none;
+}
+
+
+.translate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Master Layout split */
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container.layout-transitioning {
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+/* Layout orientations */
+.container.horizontal-layout {
+    flex-direction: row;
+}
+
+.container.vertical-layout {
+    flex-direction: column;
+}
+
+.pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Bug #10 fix: prevent flex children from overflowing in vertical layout */
+    overflow: hidden;
+    position: relative;
+}
+
+.left-pane {
+    background-color: transparent;
+}
+
+.right-pane {
+    background-color: rgba(0, 0, 0, 0.015);
+}
+
+[data-theme="dark"] .right-pane {
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Split dividers */
+.divider {
+    background-color: var(--border-color);
+    flex-shrink: 0;
+    transition: background-color 0.15s ease;
+}
+
+.container.horizontal-layout .divider {
+    width: 1px;
+    height: 100%;
+}
+
+.container.vertical-layout .divider {
+    height: 1px;
+    width: 100%;
+}
+
+/* Text Areas and wrappers */
+textarea#input-text {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    background-color: transparent;
+    color: var(--text-color);
+    padding: 16px 20px 48px 20px;
+    font-family: inherit;
+    font-size: var(--font-size-text, 14px);
+    line-height: 1.6;
+    outline: none;
+    user-select: text;
+    transition: padding 0.2s;
+}
+
+textarea#input-text::placeholder {
+    color: var(--placeholder-color);
+}
+
+.output-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.output-content {
+    width: 100%;
+    height: 100%;
+    padding: 16px 20px 48px 20px;
+    overflow-y: auto;
+    font-size: var(--font-size-text, 14px);
+    line-height: 1.6;
+    user-select: text;
+}
+
+.output-content p {
+    margin-bottom: 12px;
+}
+
+.output-content p:last-child {
+    margin-bottom: 0;
+}
+
+.output-content ul, .output-content ol {
+    margin-bottom: 12px;
+    padding-left: 20px;
+}
+
+.output-content code {
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+[data-theme="dark"] .output-content code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.output-status {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Floating Actions in Panels */
+.floating-panel-actions {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+    opacity: 0.3;
+    transform: translateY(2px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pane:hover .floating-panel-actions,
+.output-wrapper:hover .floating-panel-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.action-mini-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: var(--transition);
+}
+
+.action-mini-btn:hover {
+    background: var(--primary);
+    color: var(--primary-text);
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.action-mini-btn:active {
+    transform: translateY(0);
+}
+
+/* Custom Sleek Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Streaming typewriting cursor effect */
+.streaming-cursor {
+    display: inline-block;
+    width: 6px;
+    height: 14px;
+    background: var(--primary);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Toast System Style */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toast-message {
+    background: var(--toast-bg);
+    color: var(--toast-text);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideUp 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modals */
+.modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background-color: var(--overlay-bg);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    -webkit-app-region: no-drag !important;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 440px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-modal);
+    transform: scale(0.97) translateY(8px);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-app-region: no-drag !important;
+}
+
+.modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--label-color);
+}
+
+.form-group-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+}
+
+.form-group input,
+.form-group textarea,
+.settings-select {
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .settings-select {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.settings-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--bg-color);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus,
+[data-theme="dark"] .settings-select:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.slider-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.slider-label-row label {
+    margin-bottom: 0 !important;
+}
+
+#opacity-value, #trans-opacity-value, #font-size-value {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.opacity-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-color);
+    outline: none;
+    margin: 8px 0;
+}
+
+.opacity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.opacity-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.help-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: var(--primary-text);
+    border: 1px solid var(--primary);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+}
+
+/* ========================================== */
+/* Transparent Mode Styles                    */
+/* ========================================== */
+
+body.transparent-mode {
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] body.transparent-mode {
+    background-color: transparent !important;
+}
+
+body.transparent-mode .toolbar {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    background: transparent !important;
+    border-bottom: none !important; /* Completely transparent top bar, no border */
+    -webkit-app-region: no-drag !important; /* Disable dragging for toolbar */
+    pointer-events: none !important;
+    z-index: 1000 !important;
+}
+
+body.transparent-mode .toolbar-left { display: none !important; }
+body.transparent-mode .toolbar-actions button:not(#exit-transparent-btn):not(#theme-toggle):not(.transparent-top-btn) { display: none !important; }
+body.transparent-mode .window-controls { display: none !important; }
+body.transparent-mode .lang-selector-container { display: none !important; }
+body.transparent-mode .left-pane { display: none !important; }
+body.transparent-mode .divider { display: none !important; }
+
+/* Show exit transparent button & theme toggle - styled to match the solid design of the bottom action buttons */
+body.transparent-mode #exit-transparent-btn,
+body.transparent-mode #theme-toggle {
+    display: flex !important;
+    background-color: #FFFFFF !important; /* Matches bottom buttons white color in light mode */
+    color: #000000 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    opacity: 1.0 !important; /* Highly solid/not transparent */
+    width: 32px !important;
+    height: 32px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: var(--transition) !important;
+}
+
+body.transparent-mode #exit-transparent-btn:hover,
+body.transparent-mode #theme-toggle:hover {
+    background-color: #000000 !important; /* Inverts color on hover matching bottom buttons */
+    color: #FFFFFF !important;
+    border-color: #000000 !important;
+    transform: scale(1.08) !important;
+}
+
+[data-theme="dark"] body.transparent-mode #exit-transparent-btn,
+[data-theme="dark"] body.transparent-mode #theme-toggle {
+    background-color: #1A1A1A !important; /* Matches bottom buttons dark gray color in dark mode */
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] body.transparent-mode #exit-transparent-btn:hover,
+[data-theme="dark"] body.transparent-mode #theme-toggle:hover {
+    background-color: #FFFFFF !important; /* Inverts color on hover matching bottom buttons */
+    color: #000000 !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Visibility for right pane helper buttons in transparent mode */
+#paste-translate-btn-right,
+#clear-btn-right {
+    display: none !important;
+}
+body.transparent-mode #paste-translate-btn-right,
+body.transparent-mode #clear-btn-right {
+    display: flex !important;
+}
+
+/* Give output pane a symmetrical frosted look in transparent mode */
+body.transparent-mode textarea#input-text,
+body.transparent-mode .right-pane {
+    background-color: rgba(255, 255, 255, var(--trans-bg-opacity)) !important;
+}
+
+[data-theme="dark"] body.transparent-mode textarea#input-text,
+[data-theme="dark"] body.transparent-mode .right-pane {
+    background-color: rgba(0, 0, 0, var(--trans-bg-opacity)) !important;
+}
+
+/* Ensure textareas and placeholders are clean */
+body.transparent-mode textarea#input-text::placeholder {
+    color: rgba(128, 128, 128, 0.5) !important;
+}
+
+/* Hide floating actions completely in transparent mode to yield clean workspace */
+body.transparent-mode .floating-panel-actions {
+    display: none !important;
+}
+body.transparent-mode .action-mini-btn {
+    background: #FFFFFF !important; /* Solid background in light mode */
+    color: #000000 !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    opacity: 1.0 !important; /* Solid */
+}
+body.transparent-mode .action-mini-btn:hover {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #000000 !important;
+}
+
+[data-theme="dark"] body.transparent-mode .action-mini-btn {
+    background: #1A1A1A !important; /* Solid background in dark mode */
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+[data-theme="dark"] body.transparent-mode .action-mini-btn:hover {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Top buttons styles */
+.transparent-top-btn {
+    display: none;
+}
+
+body.transparent-mode .transparent-top-btn span {
+    display: none !important;
+}
+
+body.transparent-mode .transparent-top-btn {
+    display: flex !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    opacity: 1.0 !important;
+    border-radius: 50% !important; /* Perfect circular buttons matching exit and theme toggle */
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: var(--transition) !important;
+}
+
+body.transparent-mode .transparent-top-btn:hover {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #000000 !important;
+    transform: scale(1.08) !important;
+}
+
+[data-theme="dark"] body.transparent-mode .transparent-top-btn {
+    background: #1A1A1A !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] body.transparent-mode .transparent-top-btn:hover {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Ensure input and output characters are highly solid, bold, and fully opaque */
+body.transparent-mode textarea#input-text,
+body.transparent-mode .output-content,
+body.transparent-mode .output-content p,
+body.transparent-mode .output-content li,
+body.transparent-mode .output-content span,
+body.transparent-mode .output-content code,
+body.transparent-mode .output-content strong {
+    color: #000000 !important;
+    font-weight: 600 !important; /* Make font thicker to maximize solidness over transparent backdrops */
+    opacity: 1.0 !important;
+}
+
+[data-theme="dark"] body.transparent-mode textarea#input-text,
+[data-theme="dark"] body.transparent-mode .output-content,
+[data-theme="dark"] body.transparent-mode .output-content p,
+[data-theme="dark"] body.transparent-mode .output-content li,
+[data-theme="dark"] body.transparent-mode .output-content span,
+[data-theme="dark"] body.transparent-mode .output-content code,
+[data-theme="dark"] body.transparent-mode .output-content strong {
+    color: #FFFFFF !important;
+    font-weight: 600 !important; /* Make font thicker to maximize solidness over transparent backdrops */
+    opacity: 1.0 !important;
+}
+
+/* ========================================== */
+/* Transparent Mode Dedicated Drag Zone       */
+/* ========================================== */
+
+.drag-zone, .drag-zone-buttons {
+    display: contents;
+}
+
+body.transparent-mode .drag-zone {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 8px 10px !important;
+    border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    -webkit-app-region: drag !important;
+    cursor: move;
+    position: absolute !important; /* Back to absolute positioning relative to full-screen toolbar */
+    top: 16px !important;
+    left: calc(50% - 107.5px) !important; /* Perfectly centered horizontally without CSS transform */
+    transform: none !important;
+    width: 215px !important; /* Fixed width matching exact button layout to ensure exact sub-pixel positioning */
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    pointer-events: auto !important;
+    user-select: none !important; /* Prevent text selection inside drag zone */
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important; /* Prevent icons from being dragged as file assets */
+}
+
+[data-theme="dark"] body.transparent-mode .drag-zone {
+    border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.transparent-mode .drag-zone:hover {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] body.transparent-mode .drag-zone:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+body.transparent-mode .drag-zone-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    -webkit-app-region: no-drag !important;
+}
+
+/* Empty draggable space underneath of about the same height (approx 32px) */
+body.transparent-mode .drag-zone::after {
+    content: "" !important;
+    display: block !important;
+    height: 32px !important;
+    width: 100% !important;
+    -webkit-app-region: drag !important;
+    cursor: move !important;
+}
+
+/* Adjust output content padding in transparent mode to clear the floating capsule */
+body.transparent-mode .output-content {
+    padding-top: 110px !important; /* Sits perfectly below the centered capsule and extension zone */
+}
+
+/* Ultra-narrow responsive support for window widths under 250px */
+@media (max-width: 250px) {
+    body.transparent-mode .drag-zone {
+        padding: 4px 6px !important;
+        border-radius: 8px !important;
+        top: 8px !important;
+        width: 151px !important; /* Smaller width for smaller buttons and gaps */
+        left: calc(50% - 75.5px) !important; /* Recenter precisely */
+    }
+    body.transparent-mode .drag-zone-buttons {
+        gap: 4px !important;
+    }
+    body.transparent-mode .transparent-top-btn,
+    body.transparent-mode #exit-transparent-btn,
+    body.transparent-mode #theme-toggle {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    body.transparent-mode .transparent-top-btn svg,
+    body.transparent-mode #exit-transparent-btn svg,
+    body.transparent-mode #theme-toggle svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
+    body.transparent-mode .drag-zone::after {
+        height: 24px !important;
+    }
+    body.transparent-mode .output-content {
+        padding-top: 75px !important;
+    }
+}
+

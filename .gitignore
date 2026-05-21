@@ -1,0 +1,55 @@
+# =====================================================
+# FloatTranslator .gitignore
+# =====================================================
+
+# --- Dependencies ---
+node_modules/
+
+# --- Build & Package Output ---
+dist/
+out/
+release/
+*.exe
+*.dmg
+*.AppImage
+*.snap
+*.deb
+*.rpm
+*.msi
+
+# --- Electron Builder & Packager Cache ---
+.electron-builder/
+.cache/
+
+# --- Environment & Secrets ---
+# CRITICAL: Never commit API keys or sensitive config
+.env
+.env.local
+.env.*.local
+config.local.json
+
+# --- OS Generated Files ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# --- Miscellaneous ---
+*.tgz
+*.orig
