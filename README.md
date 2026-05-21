@@ -281,9 +281,9 @@ Contributions are welcome! Feel free to:
 
 ## 🤖 AI-Assisted Development / AI 协同开发说明
 
-This project was built using state-of-the-art AI-assisted development. It was pair-programmed between **gaoyixuan259** and **Antigravity**, a powerful agentic coding assistant designed by the Google DeepMind team. From building the transparent click-through core mechanics, resolving complex flexbox collapses, to auditing XSS vulnerabilities and generating glassmorphic icons, AI played a key role in bringing this project to life.
+This project was built using state-of-the-art AI-assisted development. It was pair-programmed between **HMS-Renown** and **Antigravity**, a powerful agentic coding assistant designed by the Google DeepMind team. From building the transparent click-through core mechanics, resolving complex flexbox collapses, to auditing XSS vulnerabilities and generating glassmorphic icons, AI played a key role in bringing this project to life.
 
-本项目由开发者与 AI 深度协同开发完成。由 **gaoyixuan259** 与 Google DeepMind 团队设计的智能编程助手 **Antigravity** 结对编程。从构建核心的透明穿透机制、解决复杂的布局坍塌，到审计 XSS 安全漏洞、以及利用 AI 图像模型 Imagen 生成高档玻璃拟态图标，AI 在本项目的诞生过程中扮演了关键的协同角色。
+本项目由开发者与 AI 深度协同开发完成。由 **HMS-Renown** 与 Google DeepMind 团队设计的智能编程助手 **Antigravity** 结对编程。从构建核心的透明穿透机制、解决复杂的布局坍塌，到审计 XSS 安全漏洞、以及利用 AI 图像模型 Imagen 生成高档玻璃拟态图标，AI 在本项目的诞生过程中扮演了关键的协同角色。
 
 ---
 
